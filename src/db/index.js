@@ -1,11 +1,22 @@
 import Database from 'better-sqlite3';
 import { env } from '../config/env.js';
 import { migrations } from './migrations.js';
+import fs from 'fs';
+import path from 'path';
 
 let dbInstance;
 
 export function getDatabase() {
   if (dbInstance) return dbInstance;
+  const dbDir = path.dirname(env.databasePath);
+  try {
+    if (!fs.existsSync(dbDir)) {
+      fs.mkdirSync(dbDir, { recursive: true });
+    }
+  } catch (e) {
+    // Si falla crear el directorio, lanzamos un error claro
+    throw new Error(`Cannot create database directory '${dbDir}': ${e.message}`);
+  }
   dbInstance = new Database(env.databasePath);
   dbInstance.pragma('journal_mode = WAL');
   dbInstance.pragma('foreign_keys = ON');
