@@ -1,12 +1,13 @@
 import express from 'express'
+import { OPENAI_API_KEY } from '../config/openai.js'
 
 const router = express.Router()
 
 router.post('/token', async (req, res, next) => {
   try {
-    const apiKey = process.env.OPENAI_API_KEY
+    const apiKey = OPENAI_API_KEY
     const { model = 'gpt-realtime' } = req.body || {}
-    if (!apiKey) {
+    if (!apiKey || apiKey.includes('REDACTED')) {
       const err = new Error('OPENAI_API_KEY is not configured')
       err.status = 500
       throw err
