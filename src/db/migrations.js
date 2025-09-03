@@ -85,4 +85,30 @@ export const migrations = [
       END;
     `,
   },
+  {
+    id: 2,
+    name: 'add_floor_boxes',
+    up: `
+      CREATE TABLE IF NOT EXISTS floor_boxes (
+        id TEXT PRIMARY KEY,
+        x REAL NOT NULL DEFAULT 0,
+        y REAL NOT NULL DEFAULT 0,
+        width REAL NOT NULL DEFAULT 100,
+        height REAL NOT NULL DEFAULT 60,
+        label TEXT,
+        color TEXT,
+        meta TEXT
+      );
+    `,
+  },
+  {
+    id: 3,
+    name: 'add_settings_kv',
+    up: `
+      CREATE TABLE IF NOT EXISTS settings (
+        key TEXT PRIMARY KEY,
+        value TEXT
+      );
+    `,
+  },
 ];

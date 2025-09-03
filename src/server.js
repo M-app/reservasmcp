@@ -6,10 +6,12 @@ import { getDatabase } from './db/index.js';
 import customersRouter from './routes/customers.js';
 import tablesRouter from './routes/tables.js';
 import floorPositionsRouter from './routes/floor-positions.js';
+import floorBoxesRouter from './routes/floor-boxes.js';
 import reservationsRouter from './routes/reservations.js';
 import calendarRouter from './routes/calendar.js';
 import waitlistRouter from './routes/waitlist.js';
 import realtimeRouter from './routes/realtime.js';
+import settingsRouter from './routes/settings.js';
 
 const app = express();
 
@@ -39,10 +41,12 @@ app.get('/health', (req, res) => {
 app.use('/api/customers', customersRouter);
 app.use('/api/tables', tablesRouter);
 app.use('/api/floor-positions', floorPositionsRouter);
+app.use('/api/floor-boxes', floorBoxesRouter);
 app.use('/api/reservations', reservationsRouter);
 app.use('/api/calendar', calendarRouter);
 app.use('/api/waitlist', waitlistRouter);
 app.use('/api/realtime', realtimeRouter);
+app.use('/api/settings', settingsRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
