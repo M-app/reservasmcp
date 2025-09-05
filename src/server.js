@@ -17,18 +17,23 @@ import belliataRouter from './routes/belliata.js';
 const app = express();
 
 const corsOrigins = env.corsOrigins;
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || corsOrigins === '*' || corsOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-  })
-);
+const corsMiddleware = cors({
+  origin: (origin, callback) => {
+    if (!origin || corsOrigins === '*' || corsOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Belliata-Token'],
+  exposedHeaders: ['Content-Length'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+});
+app.use(corsMiddleware);
+// Express 5 no acepta '*' como patrón; CORS middleware manejará OPTIONS por ruta automaticamente
 
 app.use(express.json());
 
