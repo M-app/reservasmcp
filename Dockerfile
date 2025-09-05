@@ -10,8 +10,6 @@ RUN npm ci --omit=dev
 # Copiar el resto del código
 COPY . .
 
-ENV NODE_ENV=production
-# Railway inyecta PORT; tu app ya lo usa o 4000 por defecto
-EXPOSE 4000
-
-CMD ["npm","start"]
+ENV PORT=8080
+EXPOSE 8080
+CMD ["node","src/server.js"]
