@@ -12,6 +12,7 @@ import calendarRouter from './routes/calendar.js';
 import waitlistRouter from './routes/waitlist.js';
 import realtimeRouter from './routes/realtime.js';
 import settingsRouter from './routes/settings.js';
+import belliataRouter from './routes/belliata.js';
 
 const app = express();
 
@@ -47,6 +48,7 @@ app.use('/api/calendar', calendarRouter);
 app.use('/api/waitlist', waitlistRouter);
 app.use('/api/realtime', realtimeRouter);
 app.use('/api/settings', settingsRouter);
+app.use('/api/belliata', belliataRouter);
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Not Found' });
